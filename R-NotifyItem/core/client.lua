@@ -1,149 +1,98 @@
 ESX = nil
+
 Citizen.CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj)
             ESX = obj
         end)
         Citizen.Wait(0)
-        --TriggerServerEvent('MiTH_Donate:sv:load')
     end
 end)
-RegisterNetEvent('esx:addWeapon')
-AddEventHandler('esx:addWeapon', function(i, j)    
-    -- SendNUIMessage({
-    --     type = "item-notify",
-    --     class = 1,
-    --     name = i,
-    --     count = 1,
-    --     label = loadoutInfo(i),
-    -- })
+
+local function notifyChange(changeType, label, name, amount)
+    if not label or not name or not amount or amount == 0 then
+        return
+    end
+
     SendNUIMessage({
-        action = "addNotification",
-        Type = "Add",
-        Label = loadoutInfo(i),
-        Name = i,
-        Amount = 1,
+        action = 'addNotification',
+        Type = changeType,
+        Label = label,
+        Name = name,
+        Amount = math.abs(amount),
     })
-end)
+end
 
-RegisterNetEvent('esx:removeWeapon')
-AddEventHandler('esx:removeWeapon', function(i, j)
-    -- SendNUIMessage({
-    --     action = "addNotification",
-    --     type = "item-notify",
-    --     class = 2,
-    --     name = i,
-    --     count = 1,
-    --     label = loadoutInfo(i),
-    -- })
-    SendNUIMessage({
-        action = "addNotification",
-        Type = "Remove",
-        Label = loadoutInfo(i),
-        Name = i,
-        Amount = 1,
-    })
-end)
+local function handleInventoryUpdate(updates)
+    if type(updates) ~= 'table' then
+        return
+    end
 
+    for i = 1, #updates do
+        local update = updates[i]
+        local delta = tonumber(update.delta) or 0
 
-RegisterNetEvent('esx:addInventoryItem')
-AddEventHandler('esx:addInventoryItem', function(item, count)
-    local newValue, label
-    local inventory = ESX.GetPlayerData().inventory
+        if delta ~= 0 then
+            notifyChange(delta > 0 and 'Add' or 'Remove', update.label, update.name, delta)
+        end
+    end
+end
 
-    for k,v in pairs(inventory) do
-        if v.name == item then
-            newValue = count - v.count
-            label = v.label
+local function handleAccountUpdate(account)
+    if not account or not account.name then
+        return
+    end
+
+    local accounts = ESX.GetPlayerData().accounts or {}
+    local previousMoney = 0
+
+    for i = 1, #accounts do
+        local existing = accounts[i]
+        if existing.name == account.name then
+            previousMoney = existing.money or 0
+            break
         end
     end
 
-    if label == nil then return end
-    SendNUIMessage({
-        action = "addNotification",
-        Type = "Add",
-        Label = label,
-        Name = item,
-        Amount = newValue,
-    })
-	-- SendNUIMessage({
-    --     type = "item-notify",
-    --     class = 1,
-    --     name = item,
-    --     count = newValue,
-    --     label = label,
-    -- })
-end)
-
-RegisterNetEvent('esx:removeInventoryItem')
-AddEventHandler('esx:removeInventoryItem', function(item, count)
-	local newValue, label
-    local inventory = ESX.GetPlayerData().inventory
-
-    for k,v in pairs(inventory) do
-        if v.name == item then
-            newValue = v.count - count
-            label = v.label
-        end
+    local delta = (account.money or 0) - previousMoney
+    if delta ~= 0 then
+        notifyChange(delta > 0 and 'Add' or 'Remove', account.label, account.name, delta)
     end
+end
 
-    if label == nil then return end
-    SendNUIMessage({
-        action = "addNotification",
-        Type = "Remove",
-        Label = label,
-        Name = item,
-        Amount = newValue,
-    })
-	-- SendNUIMessage({
-    --     type = "item-notify",
-    --     class = 2,
-    --     name = item,
-    --     count = newValue,
-    --     label = label,
-    -- })
-end)
+RegisterNetEvent('esx:updateInventory')
+AddEventHandler('esx:updateInventory', handleInventoryUpdate)
 
 RegisterNetEvent('esx:setAccountMoney')
-AddEventHandler('esx:setAccountMoney', function(account)
+AddEventHandler('esx:setAccountMoney', handleAccountUpdate)
 
-    local newValue, label, alertType
-    local accounts = ESX.GetPlayerData().accounts
+RegisterNetEvent('esx:updateAccounts')
+AddEventHandler('esx:updateAccounts', function(updates)
+    if type(updates) ~= 'table' then
+        return
+    end
 
-    for k,v in pairs(accounts) do
-		if v.name == account.name then
-			if account.money > v.money then
-				alertType = 1
-				newValue = account.money - v.money
-			else
-				alertType = 2
-				newValue = v.money - account.money
-			end
-            label = v.label
-		end
-	end
-    SendNUIMessage({
-        action = "addNotification",
-        Type = alertType == 1 and "Add" or "Remove",
-        Label = label,
-        Name = account.name,
-        Amount = newValue,
-    })
+    for i = 1, #updates do
+        handleAccountUpdate(updates[i])
+    end
+end)
 
-    -- SendNUIMessage({
-    --     type = "item-notify",
-    --     class = alertType,
-    --     name = account.name,
-    --     count = newValue,
-    --     label = label,
-    -- })
+RegisterNetEvent('R-NotifyItem:client:weaponNotification')
+AddEventHandler('R-NotifyItem:client:weaponNotification', function(changeType, weaponName, amount)
+    notifyChange(changeType, loadoutInfo(weaponName), weaponName, amount or 1)
 end)
 
 function loadoutInfo(request)
-    for i=1, #ESX.GetWeaponList() do
-        local e = ESX.GetWeaponList()[i]
-        if e.name == request then
-            return e.label
+    if not ESX or not ESX.GetWeaponList then
+        return request
+    end
+
+    for i = 1, #ESX.GetWeaponList() do
+        local weapon = ESX.GetWeaponList()[i]
+        if weapon.name == request then
+            return weapon.label
         end
     end
+
+    return request
 end
