@@ -1457,7 +1457,7 @@ function un(t, e) {
             Remove: "linear-gradient(90deg, rgba(255, 43, 43, 0.25) 0%, rgba(255, 43, 43, 0.00) 100%), rgba(0, 0, 0, 0.75);"
         },
         i = nn([]),
-        c = 5e3;
+        notifyDuration = 5e3;
 
     function o(l, a, u, _, g) {
         i.update(d => (d.push({
@@ -1467,7 +1467,7 @@ function un(t, e) {
             Amount: _
         }), d)), setTimeout(() => {
             i.update(d => (d.shift(), d))
-        }, g ?? c)
+        }, g ?? notifyDuration)
     }
     window.AddNotification = o;
 
