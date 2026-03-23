@@ -20,6 +20,7 @@ local function notifyChange(changeType, label, name, amount)
         Label = label,
         Name = name,
         Amount = math.abs(amount),
+        Duration = config.NotifyDuration or 5000,
     })
 end
 

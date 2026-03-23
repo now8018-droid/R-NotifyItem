@@ -1456,9 +1456,10 @@ function un(t, e) {
             Add: "linear-gradient(90deg, rgba(147, 255, 156, 0.25) 0%, rgba(147, 255, 156, 0.00) 100%), rgba(0, 0, 0, 0.75);",
             Remove: "linear-gradient(90deg, rgba(255, 43, 43, 0.25) 0%, rgba(255, 43, 43, 0.00) 100%), rgba(0, 0, 0, 0.75);"
         },
-        i = nn([]);
+        i = nn([]),
+        c = 5e3;
 
-    function o(l, a, u, _) {
+    function o(l, a, u, _, g) {
         i.update(d => (d.push({
             Type: l,
             Name: a,
@@ -1466,7 +1467,7 @@ function un(t, e) {
             Amount: _
         }), d)), setTimeout(() => {
             i.update(d => (d.shift(), d))
-        }, 5e3)
+        }, g ?? c)
     }
     window.AddNotification = o;
 
@@ -1481,11 +1482,12 @@ function un(t, e) {
             Type: u,
             Name: _,
             Amount: d,
-            Label: h
+            Label: h,
+            Duration: m
         } = l.data;
         switch (a) {
             case "addNotification":
-                o(u, _, h, d);
+                o(u, _, h, d, m);
                 break
         }
     }
