@@ -519,6 +519,7 @@ video {
 }
 .rni-notify-root {
   gap: var(--rni-root-gap) !important;
+  contain: layout paint;
   padding-right: var(--rni-root-padding-right) !important;
   padding-bottom: var(--rni-root-padding-bottom) !important;
   background-image: var(--rni-root-background-image) !important;
@@ -528,6 +529,9 @@ video {
 }
 .rni-notification-card {
   padding-right:10px;
+  will-change: transform, opacity, filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-end;

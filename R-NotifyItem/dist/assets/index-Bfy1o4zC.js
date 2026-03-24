@@ -1452,18 +1452,27 @@ function un(t, e) {
             Remove: "linear-gradient(90deg, rgba(255, 43, 43, 0.25) 0%, rgba(255, 43, 43, 0.00) 100%), rgba(0, 0, 0, 0.75);"
         },
         i = nn([]),
-        notifyDuration = 5e3;
+        notifyDuration = 5e3,
+        maxVisibleNotifications = 8;
+
+    let notifyId = 0;
 
     function o(l, a, u, _, g, k) {
-        i.update(d => (d.push({
-            Type: l,
-            Name: a,
-            Label: u,
-            Amount: _,
-            ImageSrc: k
-        }), d)), setTimeout(() => {
-            i.update(d => (d.shift(), d))
-        }, g ?? notifyDuration)
+        const id = ++notifyId,
+            duration = Math.max(600, g ?? notifyDuration);
+        i.update(d => {
+            const next = [...d, {
+                id,
+                Type: l,
+                Name: a,
+                Label: u,
+                Amount: _,
+                ImageSrc: k
+            }];
+            return next.length > maxVisibleNotifications ? next.slice(next.length - maxVisibleNotifications) : next
+        }), setTimeout(() => {
+            i.update(d => d.filter(h => h.id !== id))
+        }, duration)
     }
     window.AddNotification = o;
 
@@ -1511,11 +1520,15 @@ function un(t, e) {
         hr(() => {
             Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"เสีย"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", k() ?? `nui://nc_inventory/html/img/items/${d()??""}.png`)
         }), Xt(1, m, () => Zt, () => ({
-            y: 24,
-            duration: 250
+            x: 12,
+            y: 20,
+            duration: 420,
+            opacity: .08
         })), Xt(2, m, () => Zt, () => ({
-            y: 24,
-            duration: 250
+            x: 12,
+            y: 20,
+            duration: 420,
+            opacity: .08
         })), jt(l, m)
     }), jt(t, c), Ie()
 }
