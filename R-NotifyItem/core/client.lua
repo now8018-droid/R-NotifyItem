@@ -9,6 +9,11 @@ Citizen.CreateThread(function()
     end
 end)
 
+local function getItemImagePath(name)
+    local basePath = config.ItemImageBasePath or 'nui://nc_inventory/html/img/items/'
+    return ('%s%s.png'):format(basePath, tostring(name or ''))
+end
+
 local function notifyChange(changeType, label, name, amount)
     if not label or not name or not amount or amount == 0 then
         return
@@ -21,6 +26,7 @@ local function notifyChange(changeType, label, name, amount)
         Name = name,
         Amount = math.abs(amount),
         Duration = config.NotifyDuration or 5000,
+        ImageSrc = getItemImagePath(name),
     })
 end
 

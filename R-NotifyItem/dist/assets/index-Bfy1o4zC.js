@@ -1454,12 +1454,13 @@ function un(t, e) {
         i = nn([]),
         notifyDuration = 5e3;
 
-    function o(l, a, u, _, g) {
+    function o(l, a, u, _, g, k) {
         i.update(d => (d.push({
             Type: l,
             Name: a,
             Label: u,
-            Amount: _
+            Amount: _,
+            ImageSrc: k
         }), d)), setTimeout(() => {
             i.update(d => (d.shift(), d))
         }, g ?? notifyDuration)
@@ -1478,11 +1479,12 @@ function un(t, e) {
             Name: _,
             Amount: d,
             Label: h,
-            Duration: m
+            Duration: m,
+            ImageSrc: k
         } = l.data;
         switch (a) {
             case "addNotification":
-                o(u, _, h, d, m);
+                o(u, _, h, d, m, k);
                 break
         }
     }
@@ -1494,7 +1496,8 @@ function un(t, e) {
         let u = () => z(a).Type,
             _ = () => z(a).Amount,
             d = () => z(a).Name,
-            h = () => z(a).Label;
+            h = () => z(a).Label,
+            k = () => z(a).ImageSrc;
         const m0 = () => `${u()=="Add"?"+":"-"}${Math.abs(Number(_() ?? 0))}`;
         var m = on(),
             p = G(m),
@@ -1506,7 +1509,7 @@ function un(t, e) {
             V = G(H),
             N = M(p, 2);
         hr(() => {
-            Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"เสีย"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`)
+            Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"เสีย"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", k() ?? `nui://nc_inventory/html/img/items/${d()??""}.png`)
         }), Xt(1, m, () => Zt, () => ({
             y: 24,
             duration: 250
