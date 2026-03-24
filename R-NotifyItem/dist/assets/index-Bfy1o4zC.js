@@ -1440,13 +1440,8 @@ function Zt(t, {
 			opacity: ${v-l*m}`
     }
 }
-var on = Le('<div><div></div> <div></div> <div></div> <div></div> <div class="_min-w-[44px] _w-[44px] _h-[44px] _p-[5px] svelte-hpev1t"><img alt="Item" class="w-full h-full svelte-hpev1t"></div> <div class="flex flex-col justify-center _pl-[12px] text-white w-full h-full relative svelte-hpev1t"><img alt="" class="absolute top-0 right-0 _w-[11px] _h-[11px] svelte-hpev1t"> <span class="flex _text-[12px] font-semibold svelte-hpev1t"><p class="uppercase svelte-hpev1t"> </p> </span> <div class="_w-full _h-[1px] svelte-hpev1t" style="background: linear-gradient(90deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);box-shadow: 0px 0px 4px 0px rgba(255, 255, 255, 0.25);"></div> <span class="_text-[10px] font-normal uppercase text-white/75 svelte-hpev1t"> </span></div></div>'),
-    ln = Le(`<main style="
-    background-image: url('/GTA%20BG.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  " class="flex flex-col _gap-[8px] items-end justify-end h-screen _pb-[80px] _pr-[16px] svelte-hpev1t"></main>`);
+var on = Le('<div class="rni-notification-card"><div class="rni-notification__text"><span class="rni-notification__prefix">ได้รับ</span> <span class="rni-notification__label"> </span> <span class="rni-notification__count-label">จำนวน</span> <span class="rni-notification__amount"> </span></div> <img alt="Item" class="rni-notification__image"></div>'),
+    ln = Le(`<main class="rni-notify-root flex flex-col _gap-[8px] items-end justify-end h-screen _pb-[80px] _pr-[16px] svelte-hpev1t"></main>`);
 
 function un(t, e) {
     Ce(e, !1);
@@ -1456,17 +1451,19 @@ function un(t, e) {
             Add: "linear-gradient(90deg, rgba(147, 255, 156, 0.25) 0%, rgba(147, 255, 156, 0.00) 100%), rgba(0, 0, 0, 0.75);",
             Remove: "linear-gradient(90deg, rgba(255, 43, 43, 0.25) 0%, rgba(255, 43, 43, 0.00) 100%), rgba(0, 0, 0, 0.75);"
         },
-        i = nn([]);
+        i = nn([]),
+        notifyDuration = 5e3;
 
-    function o(l, a, u, _) {
+    function o(l, a, u, _, g, k) {
         i.update(d => (d.push({
             Type: l,
             Name: a,
             Label: u,
-            Amount: _
+            Amount: _,
+            ImageSrc: k
         }), d)), setTimeout(() => {
             i.update(d => (d.shift(), d))
-        }, 5e3)
+        }, g ?? notifyDuration)
     }
     window.AddNotification = o;
 
@@ -1481,11 +1478,13 @@ function un(t, e) {
             Type: u,
             Name: _,
             Amount: d,
-            Label: h
+            Label: h,
+            Duration: m,
+            ImageSrc: k
         } = l.data;
         switch (a) {
             case "addNotification":
-                o(u, _, h, d);
+                o(u, _, h, d, m, k);
                 break
         }
     }
@@ -1497,36 +1496,26 @@ function un(t, e) {
         let u = () => z(a).Type,
             _ = () => z(a).Amount,
             d = () => z(a).Name,
-            h = () => z(a).Label;
+            h = () => z(a).Label,
+            k = () => z(a).ImageSrc;
+        const m0 = () => `${u()=="Add"?"+":"-"}${Math.abs(Number(_() ?? 0))}`;
         var m = on(),
             p = G(m),
-            b = M(p, 2),
-            T = M(b, 2),
-            S = M(T, 2),
-            x = M(S, 2),
-            H = G(x),
-            V = M(x, 2),
-            N = G(V),
-            lt = M(N, 2),
-            ut = G(lt),
-            De = G(ut),
-            Re = M(ut),
-            qe = M(lt, 4),
-            Be = G(qe);
+            b = G(p),
+            T = G(b),
+            S = M(b, 2),
+            x = G(S),
+            H = M(S, 4),
+            V = G(H),
+            N = M(p, 2);
         hr(() => {
-            Z(m, `_w-[220px] _p-[8px] relative _border-[1px] ${(u()=="Add"?"border-[#93FF9C]/10":"border-[#FF2B2B]/10")??""}  flex items-center svelte-hpev1t`), ft(m, "style", `
-        background: ${s[u()]??""};
-      `), Z(p, `absolute _mt-[-1px] _ml-[-1px] top-0 left-0 _w-[10px] _h-[10px] _border-t-[1px] _border-l-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(b, `absolute _mt-[-1px] _mr-[-1px] top-0 right-0 _w-[10px] _h-[10px] _border-t-[1px] _border-r-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(T, `absolute _mb-[-1px] _ml-[-1px] bottom-0 left-0 _w-[10px] _h-[10px] _border-b-[1px] _border-l-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(S, `absolute _mb-[-1px] _mr-[-1px] bottom-0 right-0 _w-[10px] _h-[10px] _border-b-[1px] _border-r-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), ft(x, "style", `
-    background-image: url('${u()??""}.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;`), ft(H, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`), ft(N, "src", `P${u()??""}.png`), wt(De, u()), wt(Re, `  x${_()??""}`), wt(Be, h())
+            Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"เสีย"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", k() ?? `nui://nc_inventory/html/img/items/${d()??""}.png`)
         }), Xt(1, m, () => Zt, () => ({
-            y: 50,
-            duration: 300
+            y: 24,
+            duration: 250
         })), Xt(2, m, () => Zt, () => ({
-            y: 50,
-            duration: 300
+            y: 24,
+            duration: 250
         })), jt(l, m)
     }), jt(t, c), Ie()
 }

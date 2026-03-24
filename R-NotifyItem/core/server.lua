@@ -5,14 +5,25 @@ local function getPlayer(source)
     return ESX.GetPlayerFromId(source)
 end
 
+local function sendWeaponNotification(source, changeType, weaponName, amount)
+    TriggerClientEvent('R-NotifyItem:client:weaponNotification', source, changeType, weaponName, amount or 1)
+end
+
+AddEventHandler('esx:onAddWeapon', function(source, weaponName)
+    sendWeaponNotification(source, 'Add', weaponName, 1)
+end)
+
+AddEventHandler('esx:onRemoveWeapon', function(source, weaponName)
+    sendWeaponNotification(source, 'Remove', weaponName, 1)
+end)
+
 RegisterServerEvent('inventory:addItem')
 AddEventHandler('inventory:addItem', function(itemName, count)
     local _source = source
     local xPlayer = getPlayer(_source)
-    
+
     if xPlayer then
         if not count or count < 1 then count = 1 end
-        local currentCount = xPlayer.getInventoryItem(itemName).count or 0
         xPlayer.addInventoryItem(itemName, count)
     end
 end)
@@ -21,7 +32,7 @@ RegisterServerEvent('inventory:removeItem')
 AddEventHandler('inventory:removeItem', function(itemName, count)
     local _source = source
     local xPlayer = getPlayer(_source)
-    
+
     if xPlayer then
         if not count or count < 1 then count = 1 end
         local currentCount = xPlayer.getInventoryItem(itemName).count or 0
@@ -37,11 +48,10 @@ RegisterServerEvent('inventory:addWeapon')
 AddEventHandler('inventory:addWeapon', function(weaponName, ammo)
     local _source = source
     local xPlayer = getPlayer(_source)
-    
+
     if xPlayer then
         ammo = ammo or 250
         xPlayer.addWeapon(weaponName, ammo)
-
     end
 end)
 
@@ -49,7 +59,7 @@ RegisterServerEvent('inventory:removeWeapon')
 AddEventHandler('inventory:removeWeapon', function(weaponName)
     local _source = source
     local xPlayer = getPlayer(_source)
-    
+
     if xPlayer then
         if xPlayer.hasWeapon(weaponName) then
             xPlayer.removeWeapon(weaponName)
@@ -63,7 +73,7 @@ RegisterServerEvent('inventory:setAccountMoney')
 AddEventHandler('inventory:setAccountMoney', function(accountName, amount, action)
     local _source = source
     local xPlayer = getPlayer(_source)
-    
+
     if xPlayer then
         amount = tonumber(amount)
         if amount and amount > 0 then
