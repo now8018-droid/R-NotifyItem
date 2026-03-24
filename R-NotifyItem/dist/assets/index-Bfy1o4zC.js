@@ -937,8 +937,8 @@ function qr(t, {
 }
 let Yt = new WeakMap;
 
-function Br(t, e) {
-    return e
+function Br(t) {
+    return t != null && t.id !== void 0 ? t.id : t
 }
 
 function $r(t, e, r, n) {
@@ -1452,8 +1452,7 @@ function un(t, e) {
             Remove: "linear-gradient(90deg, rgba(255, 43, 43, 0.25) 0%, rgba(255, 43, 43, 0.00) 100%), rgba(0, 0, 0, 0.75);"
         },
         i = nn([]),
-        notifyDuration = 5e3,
-        maxVisibleNotifications = 8;
+        notifyDuration = 5e3;
 
     let notifyId = 0;
 
@@ -1469,7 +1468,7 @@ function un(t, e) {
                 Amount: _,
                 ImageSrc: k
             }];
-            return next.length > maxVisibleNotifications ? next.slice(next.length - maxVisibleNotifications) : next
+            return next
         }), setTimeout(() => {
             i.update(d => d.filter(h => h.id !== id))
         }, duration)
