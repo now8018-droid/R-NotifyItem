@@ -1440,13 +1440,8 @@ function Zt(t, {
 			opacity: ${v-l*m}`
     }
 }
-var on = Le('<div><div></div> <div></div> <div></div> <div></div> <div class="_min-w-[44px] _w-[44px] _h-[44px] _p-[5px] svelte-hpev1t"><img alt="Item" class="w-full h-full svelte-hpev1t"></div> <div class="flex flex-col justify-center _pl-[12px] text-white w-full h-full relative svelte-hpev1t"><img alt="" class="absolute top-0 right-0 _w-[11px] _h-[11px] svelte-hpev1t"> <span class="flex _text-[12px] font-semibold svelte-hpev1t"><p class="uppercase svelte-hpev1t"> </p> </span> <div class="_w-full _h-[1px] svelte-hpev1t" style="background: linear-gradient(90deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);box-shadow: 0px 0px 4px 0px rgba(255, 255, 255, 0.25);"></div> <span class="_text-[10px] font-normal uppercase text-white/75 svelte-hpev1t"> </span></div></div>'),
-    ln = Le(`<main style="
-    background-image: url('/GTA%20BG.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  " class="flex flex-col _gap-[8px] items-end justify-end h-screen _pb-[80px] _pr-[16px] svelte-hpev1t"></main>`);
+var on = Le('<div><div></div> <div></div> <div></div> <div></div> <div class="rni-notification__badge _min-w-[44px] _w-[44px] _h-[44px] _p-[5px] svelte-hpev1t"><img alt="Item" class="w-full h-full svelte-hpev1t"></div> <div class="rni-notification__content flex flex-col justify-center _pl-[12px] text-white w-full h-full relative svelte-hpev1t"><img alt="" class="rni-notification__icon absolute top-0 right-0 _w-[11px] _h-[11px] svelte-hpev1t"> <span class="flex _text-[12px] font-semibold svelte-hpev1t"><p class="uppercase svelte-hpev1t"> </p> </span> <div class="rni-notification__divider _w-full _h-[1px] svelte-hpev1t"></div> <span class="_text-[10px] font-normal uppercase text-white/75 svelte-hpev1t"> </span></div></div>'),
+    ln = Le(`<main class="rni-notify-root flex flex-col _gap-[8px] items-end justify-end h-screen _pb-[80px] _pr-[16px] svelte-hpev1t"></main>`);
 
 function un(t, e) {
     Ce(e, !1);
@@ -1516,13 +1511,7 @@ function un(t, e) {
             qe = M(lt, 4),
             Be = G(qe);
         hr(() => {
-            Z(m, `_w-[220px] _p-[8px] relative _border-[1px] ${(u()=="Add"?"border-[#93FF9C]/10":"border-[#FF2B2B]/10")??""}  flex items-center svelte-hpev1t`), ft(m, "style", `
-        background: ${s[u()]??""};
-      `), Z(p, `absolute _mt-[-1px] _ml-[-1px] top-0 left-0 _w-[10px] _h-[10px] _border-t-[1px] _border-l-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(b, `absolute _mt-[-1px] _mr-[-1px] top-0 right-0 _w-[10px] _h-[10px] _border-t-[1px] _border-r-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(T, `absolute _mb-[-1px] _ml-[-1px] bottom-0 left-0 _w-[10px] _h-[10px] _border-b-[1px] _border-l-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), Z(S, `absolute _mb-[-1px] _mr-[-1px] bottom-0 right-0 _w-[10px] _h-[10px] _border-b-[1px] _border-r-[1px] ${(u()=="Add"?"border-[#93FF9C]/50":"border-[#FF2B2B]/50")??""} svelte-hpev1t`), ft(x, "style", `
-    background-image: url('${u()??""}.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;`), ft(H, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`), ft(N, "src", `P${u()??""}.png`), wt(De, u()), wt(Re, `  x${_()??""}`), wt(Be, h())
+            Z(m, `_w-[220px] _p-[8px] relative _border-[1px] flex items-center rni-notification ${(u()=="Add"?"rni-notification--add":"rni-notification--remove")??""} svelte-hpev1t`), Z(p, `absolute _mt-[-1px] _ml-[-1px] top-0 left-0 _w-[10px] _h-[10px] _border-t-[1px] _border-l-[1px] rni-notification__corner ${(u()=="Add"?"rni-notification__corner--add":"rni-notification__corner--remove")??""} svelte-hpev1t`), Z(b, `absolute _mt-[-1px] _mr-[-1px] top-0 right-0 _w-[10px] _h-[10px] _border-t-[1px] _border-r-[1px] rni-notification__corner ${(u()=="Add"?"rni-notification__corner--add":"rni-notification__corner--remove")??""} svelte-hpev1t`), Z(T, `absolute _mb-[-1px] _ml-[-1px] bottom-0 left-0 _w-[10px] _h-[10px] _border-b-[1px] _border-l-[1px] rni-notification__corner ${(u()=="Add"?"rni-notification__corner--add":"rni-notification__corner--remove")??""} svelte-hpev1t`), Z(S, `absolute _mb-[-1px] _mr-[-1px] bottom-0 right-0 _w-[10px] _h-[10px] _border-b-[1px] _border-r-[1px] rni-notification__corner ${(u()=="Add"?"rni-notification__corner--add":"rni-notification__corner--remove")??""} svelte-hpev1t`), Z(x, `rni-notification__badge ${(u()=="Add"?"rni-notification__badge--add":"rni-notification__badge--remove")??""} svelte-hpev1t`), ft(H, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`), ft(N, "src", `P${u()??""}.png`), wt(De, u()), wt(Re, `  x${_()??""}`), wt(Be, h())
         }), Xt(1, m, () => Zt, () => ({
             y: 50,
             duration: 300
