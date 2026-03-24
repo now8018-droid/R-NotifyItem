@@ -1506,7 +1506,7 @@ function un(t, e) {
             V = G(H),
             N = M(p, 2);
         hr(() => {
-            Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"นำออก"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`)
+            Z(m, `rni-notification-card ${(u()=="Add"?"rni-notification-card--add":"rni-notification-card--remove")??""} svelte-hpev1t`), wt(T, u()=="Add"?"ได้รับ":"เสีย"), wt(x, h() ?? d() ?? ""), wt(V, m0()), ft(N, "src", `nui://nc_inventory/html/img/items/${d()??""}.png`)
         }), Xt(1, m, () => Zt, () => ({
             y: 24,
             duration: 250
